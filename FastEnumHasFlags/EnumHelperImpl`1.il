@@ -14,13 +14,13 @@
 	{
 		.maxstack 3
 		ldarg.0 // Get enumValue as argument
-		conv.u8 // CLng(enumValue)
-		dup     // Copy CLng(enumValue) as new argument
+		conv.u8 // CULng(enumValue)
+		dup     // Copy CULng(enumValue) as new argument
 		ldarg.1 // Get flagValue as argument
-		conv.u8 // CLng(flagValue)
-		or      // CLng(enumValue) Or CLng(flagValue)
-		ceq     // CLng(enumValue) = CLng(enumValue) Or CLng(flagValue)
-		ret     // Return CLng(enumValue) = CLng(enumValue) Or CLng(flagValue)
+		conv.u8 // CULng(flagValue)
+		or      // CULng(enumValue) Or CULng(flagValue)
+		ceq     // CULng(enumValue) = CULng(enumValue) Or CULng(flagValue)
+		ret     // Return CULng(enumValue) = CULng(enumValue) Or CULng(flagValue)
 	} // End Function
 
 } // End Class
