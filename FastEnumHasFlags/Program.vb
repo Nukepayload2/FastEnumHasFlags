@@ -1,12 +1,4 @@
-﻿Imports System.Runtime.InteropServices
-
-Module Program
-
-#Disable Warning CA2101 ' Specify marshaling for P/Invoke string arguments
-    <DllImport("msvcrt", EntryPoint:="system", CallingConvention:=CallingConvention.Cdecl, CharSet:=CharSet.Ansi, ExactSpelling:=True)>
-    Function System(<MarshalAs(UnmanagedType.LPStr)> command As String) As Integer
-    End Function
-#Enable Warning CA2101 ' Specify marshaling for P/Invoke string arguments
+﻿Module Program
 
     Sub Main()
         Dim mBoxStyle = MsgBoxStyle.RetryCancel
@@ -22,7 +14,7 @@ Module Program
         Net461EnumGetValues(mBoxStyle, enumValues, LoopCount)
         timer.Stop()
         Console.WriteLine($"Net461 has flag: {timer.ElapsedMilliseconds}ms.")
-        System("pause")
+        Console.WriteLine("Done.")
     End Sub
 
     Private Sub Net461EnumGetValues(mBoxStyle As MsgBoxStyle, enumValues() As MsgBoxStyle, loopCount As Integer)
