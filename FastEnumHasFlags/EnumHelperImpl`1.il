@@ -1,5 +1,5 @@
 ﻿// Class EnumHelperImpl(Of T As Class)
-.class private auto ansi FastEnumHasFlags.EnumHelperImpl`1<class T>
+.class public auto ansi FastEnumHasFlags.EnumHelperImpl`1<class T>
 	extends [mscorlib]System.Object
 {
     // Public Shared Function HasFlag(Of TEnum As {Structure, T})(
