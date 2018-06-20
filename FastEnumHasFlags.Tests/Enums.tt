@@ -1,0 +1,38 @@
+﻿<#@ template debug="false" hostspecific="false" language="VB" compilerOptions="/optionstrict+ /optioninfer+ /optionexplicit+"#>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Runtime.InteropServices" #>
+<#@ import namespace="System.Collections.Generic" #>
+Option Strict On
+<#
+Dim types = {GetType(SByte), GetType(Byte), GetType(Short), GetType(UShort), GetType(Integer), GetType(UInteger), GetType(Long), GetType(ULong)}
+Dim postfix = {"", "", "S", "US", "", "UI", "L", "UL"}
+For i = 0 To types.Length - 1
+#>
+Enum EnumOf<#=types(i).Name#> As <#=types(i).Name#>
+<#
+    Dim signed = i Mod 2 = 0
+    Dim digitsSizeInBits = Marshal.SizeOf(types(i)) * 8
+    If signed Then
+        digitsSizeInBits -= 1
+        For j = digitsSizeInBits - 1 To 0 Step -1
+#>
+    NegFlag<#=j#> = -&B1<#=New String("0"c, j)#><#=postfix(i)#>
+<#
+        Next
+    End If
+#>
+    ZeroFlag = 0
+<#
+    For j = 0 To digitsSizeInBits - 1
+#>
+    PosFlag<#=j#> = &B1<#=New String("0"c, j)#><#=postfix(i)#>
+<#
+    Next
+#>
+End Enum
+<#
+Next
+#>
+<#@ output extension=".vb" #>

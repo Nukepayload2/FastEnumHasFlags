@@ -1,4 +1,4 @@
-﻿Class EnumHelper
+﻿Public Class EnumHelper
     Inherits EnumHelperImpl(Of [Enum])
 
 End Class

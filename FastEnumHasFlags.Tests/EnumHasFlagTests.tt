@@ -1,0 +1,34 @@
+﻿<#@ template debug="false" hostspecific="false" language="VB" compilerOptions="/optionstrict+ /optioninfer+ /optionexplicit+"#>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Runtime.InteropServices" #>
+<#@ import namespace="System.Collections.Generic" #>
+Option Strict On
+
+<TestClass>
+Public Class EnumHasFlagTests
+<#
+Dim types = {GetType(SByte), GetType(Byte), GetType(Short), GetType(UShort), GetType(Integer), GetType(UInteger), GetType(Long), GetType(ULong)}
+Dim postfix = {"", "", "S", "US", "", "UI", "L", "UL"}
+For i = 0 To types.Length - 1
+Dim enumName = "EnumOf" + types(i).Name
+#>
+    <TestMethod>
+    Public Sub Test<#=enumName#>()
+        Dim enumValues = [Enum].GetValues(GetType(<#=enumName#>)).Cast(Of <#=enumName#>).ToArray
+        For i = 1 To enumValues.Length - 1
+            For j = 0 To enumValues.Length - 1
+                Dim enumValue = enumValues(i)
+                Dim flag = enumValues(j)
+                Dim expected = enumValue.HasFlag(flag)
+                Dim actual = EnumHelper.HasFlag(enumValue, flag)
+                Assert.AreEqual(expected, actual)
+            Next
+        Next
+    End Sub
+<#
+Next
+#>
+End Class
+<#@ output extension=".vb" #>
